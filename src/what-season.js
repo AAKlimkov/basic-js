@@ -4,7 +4,7 @@ module.exports = function getSeason(date) {
   if (!date){
     return 'Unable to determine the time of year!'
   }
-  if (date instanceof Date && typeof dategit .getUTCFullYear() == "number") {
+  if (date instanceof Date && typeof date.getUTCFullYear() == "number") {
     var seasonNumber = date.getMonth()
   } else {
     throw `Error`
