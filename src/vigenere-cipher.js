@@ -2,31 +2,56 @@ const CustomError = require("../extensions/custom-error");
 
 class VigenereCipheringMachine {
   encrypt(string, key) {
-    let arr = string.split(" ");
-    let word = [];
-    let keynumber = 0;
-    let symbol;
-    for (let i = 0; i < arr.length; i++) {
-      for (let j = 0; j < arr[i].length; j++) {
-        symbol = arr[i].charCodeAt(j) + key.charCodeAt(keynumber) - 97 ;
-        word.push(symbol)
-        keynumber += 1;
-        if (keynumber >= keynumber.length) {
-          keynumber = keynumber - keynumber.length;
-        }
-        arr[i] = String.fromCharCode(word)
-      }
+    let arr = string.toLowerCase().split(" ");
+    key=key.toLowerCase()
+    let decode = []
+    let decode2 = []
+    let chaar
+    let j = 0
+    let m = 0
+do{
+  for (let i = 0; i < arr[m].length; i++) {
+    if (arr[m].charCodeAt(i)>96&&arr[m].charCodeAt(i)<123) {
+      chaar = (arr[m].charCodeAt(i) + key.charCodeAt(j) - 97) > 122 ? (arr[m].charCodeAt(i) + key.charCodeAt(j) - 97 - 26) : (arr[m].charCodeAt(i) + key.charCodeAt(j) - 97)
+      decode[i] = String.fromCharCode(chaar)
+      j += 1
+      j = j >= key.length ? j - key.length : j
+    } else {
+      decode[i] = arr[m].charAt(i)
     }
-    let abc =[97,98,99].join(",")
-    return string.split(" ")[0].charCodeAt(2) + key.charCodeAt(2) - 97
-    // return String.fromCharCode(arr[0].charCodeAt(6) + key.charCodeAt(6) - 97).toUpperCase()
-    // return  String.fromCharCode(97,98,99)
-    return abc
   }
-  decrypt() {
-    throw new CustomError("Not implemented");
-    // remove line with error and write your code here
+  decode2[m] = decode.join('').toUpperCase()
+  decode.fill('')
+  m+=1
+} while (m<arr.length)
+    return decode2.join(' ').toUpperCase()
   }
-}
+  decrypt(string, key) {
+    let arr = string.toLowerCase().split(" ");
+    key=key.toLowerCase()
+    let decode = []
+    let decode2 = []
+    let chaar
+    let j = 0
+    let m = 0
+do{
+  for (let i = 0; i < arr[m].length; i++) {
+    if (arr[m].charCodeAt(i)>96&&arr[m].charCodeAt(i)<123) {
+      chaar = (arr[m].charCodeAt(i) - key.charCodeAt(j) + 97) < 97 ? (arr[m].charCodeAt(i) - key.charCodeAt(j) + 97 + 26) : (arr[m].charCodeAt(i) - key.charCodeAt(j) + 97)
+      decode[i] = String.fromCharCode(chaar)
+      j += 1
+      j = j >= key.length ? j - key.length : j
+    } else {
+      decode[i] = arr[m].charAt(i)
+    }
+  }
+  decode2[m] = decode.join('').toUpperCase()
+  decode.fill('')
+  m+=1
+} while (m<arr.length)
+    return decode2.join(' ').toUpperCase()
+  }
+  }
+
 
 module.exports = VigenereCipheringMachine;
