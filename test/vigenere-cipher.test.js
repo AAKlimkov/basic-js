@@ -28,7 +28,7 @@ describe('Vigenere cipher', () => {
   //Specific requirements
     describe('base requirements', () => {
         const directMachine = new VigenereCipheringMachine();
-        const reverseMachine = new VigenereCipheringMachine();
+        const reverseMachine =new VigenereCipheringMachine();
 
         it.optional('must throw an Error if no args', function() {
           let res = null;
@@ -54,7 +54,7 @@ describe('Vigenere cipher', () => {
             }
             assert.equal(res, 'THROWN');
         });
-        
+
         it.optional('base encryption', () => {
             assert.equal(directMachine.encrypt('attack at dawn!', 'alphonse'), 'AEIHQX SX DLLU!');
             assert.equal(directMachine.encrypt('Example of sequence: 1, 2, 3, 4.', 'lilkey'), 'PFLWTJP WQ CIOFMYMI: 1, 2, 3, 4.');
@@ -83,16 +83,16 @@ describe('Vigenere cipher', () => {
             }
         });
 
-        it.optional('double-sided reverse cryptography 2', () => {
-            for (let i = 2; i < 200; i += 1) {
-                const testStr = createTestString(i);
-                const reversedTestStr = testStr.split('').reverse().join('');
-                const testKey = createTestKey(i - i % 2);
-                const encrypted = reverseMachine.encrypt(reversedTestStr, testKey);
-                const reversedEncrypted = encrypted.split('').reverse().join('');
-                assert.equal(reverseMachine.decrypt(reversedEncrypted, testKey), testStr);
-            }
-        });
-    });
+          it.optional('double-sided reverse cryptography 2', () => {
+              for (let i = 2; i < 200; i += 1) {
+                  const testStr = createTestString(i);
+                  const reversedTestStr = testStr.split('').reverse().join('');
+                  const testKey = createTestKey(i - i % 2);
+                  const encrypted = reverseMachine.encrypt(reversedTestStr, testKey);
+                  const reversedEncrypted = encrypted.split('').reverse().join('');
+                  assert.equal(reverseMachine.decrypt(reversedEncrypted, testKey), testStr);
+              }
+          });
+      });
 
 });

@@ -1,55 +1,50 @@
 const CustomError = require("../extensions/custom-error");
 
 class VigenereCipheringMachine {
+  constructor(direct = true)
+  {
+      this.isDirect = direct;
+  }
+
   encrypt(string, key) {
-    let arr = string.toLowerCase().split(" ");
+    let arr = string.toLowerCase();
     key=key.toLowerCase()
     let decode = []
-    let decode2 = []
     let chaar
     let j = 0
-    let m = 0
-do{
-  for (let i = 0; i < arr[m].length; i++) {
-    if (arr[m].charCodeAt(i)>96&&arr[m].charCodeAt(i)<123) {
-      chaar = (arr[m].charCodeAt(i) + key.charCodeAt(j) - 97) > 122 ? (arr[m].charCodeAt(i) + key.charCodeAt(j) - 97 - 26) : (arr[m].charCodeAt(i) + key.charCodeAt(j) - 97)
+  for (let i = 0; i < arr.length; i++) {
+    if (arr.charCodeAt(i)>96 && arr.charCodeAt(i)<123 ) {
+      chaar = (arr.charCodeAt(i) + key.charCodeAt(j) - 97) > 122 ? (arr.charCodeAt(i) + key.charCodeAt(j) - 97 - 26) : (arr.charCodeAt(i) + key.charCodeAt(j) - 97)
       decode[i] = String.fromCharCode(chaar)
       j += 1
       j = j >= key.length ? j - key.length : j
     } else {
-      decode[i] = arr[m].charAt(i)
+      decode[i] = arr.charAt(i)
     }
+
   }
-  decode2[m] = decode.join('').toUpperCase()
-  decode.fill('')
-  m+=1
-} while (m<arr.length)
-    return decode2.join(' ').toUpperCase()
+   if(this.isDirect == false) decode.reverse();
+    return decode.join('').toUpperCase()
   }
   decrypt(string, key) {
-    let arr = string.toLowerCase().split(" ");
+    let arr = string.toLowerCase();
     key=key.toLowerCase()
     let decode = []
-    let decode2 = []
     let chaar
     let j = 0
-    let m = 0
-do{
-  for (let i = 0; i < arr[m].length; i++) {
-    if (arr[m].charCodeAt(i)>96&&arr[m].charCodeAt(i)<123) {
-      chaar = (arr[m].charCodeAt(i) - key.charCodeAt(j) + 97) < 97 ? (arr[m].charCodeAt(i) - key.charCodeAt(j) + 97 + 26) : (arr[m].charCodeAt(i) - key.charCodeAt(j) + 97)
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr.charCodeAt(i)>96&&arr.charCodeAt(i)<123) {
+      chaar = (arr.charCodeAt(i) - key.charCodeAt(j) + 97) < 97 ? (arr.charCodeAt(i) - key.charCodeAt(j) + 97 + 26) : (arr.charCodeAt(i) - key.charCodeAt(j) + 97)
       decode[i] = String.fromCharCode(chaar)
       j += 1
       j = j >= key.length ? j - key.length : j
     } else {
-      decode[i] = arr[m].charAt(i)
+      decode[i] = arr.charAt(i)
     }
   }
-  decode2[m] = decode.join('').toUpperCase()
-  decode.fill('')
-  m+=1
-} while (m<arr.length)
-    return decode2.join(' ').toUpperCase()
+  if(this.isDirect == false) decode.reverse();
+    return decode.join('').toUpperCase()
   }
   }
 

@@ -1,24 +1,27 @@
 const CustomError = require("../extensions/custom-error");
-
+let chain =[]
 const chainMaker = {
+
   getLength() {
-    'THROWN'
+    return chain.length
     // remove line with error and write your code here
   },
   addLink(value) {
-    'THROWN';
+    chain=chain.push(value)
+
     // remove line with error and write your code here
   },
   removeLink(position) {
-    'THROWN';
+  chain[position]= ''
     // remove line with error and write your code here
   },
   reverseChain() {
-    'THROWN';
+   chain =  chain.join("__").reverse().splite("__")
+   return chain
     // remove line with error and write your code here
   },
   finishChain() {
-    'THROWN';
+   return chain.join('~~')
     // remove line with error and write your code here
   }
 };
