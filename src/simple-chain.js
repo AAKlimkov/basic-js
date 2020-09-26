@@ -1,28 +1,38 @@
 const CustomError = require("../extensions/custom-error");
-let chain =[]
-const chainMaker = {
 
+const chainMaker = {
+  chain : [],
   getLength() {
-    return chain.length
+    return this.chain.length
     // remove line with error and write your code here
   },
   addLink(value) {
-    chain=chain.push(value)
-
+    this.chain.push(String(value))
+    return this
     // remove line with error and write your code here
   },
   removeLink(position) {
-  chain[position]= ''
-    // remove line with error and write your code here
+
+ if ( typeof(position) == 'number') {
+  this.chain.splice(position-1,1)
+  return this
+ } else {
+  this.chain = [];
+  throw new Error('Error');
+ }
+
+  // remove line with error and write your code here
   },
   reverseChain() {
-   chain =  chain.join("__").reverse().splite("__")
-   return chain
+   this.chain.reverse()
+   return this
     // remove line with error and write your code here
   },
   finishChain() {
-   return chain.join('~~')
-    // remove line with error and write your code here
+    str =this.chain.map(el=> el===''? '': `( ${el} )`).join('~~')
+    this.chain = [];
+   return str
+
   }
 };
 
